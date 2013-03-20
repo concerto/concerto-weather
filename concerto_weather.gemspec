@@ -7,13 +7,13 @@ require "concerto_weather/version"
 Gem::Specification.new do |s|
   s.name        = "concerto_weather"
   s.version     = ConcertoWeather::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of ConcertoWeather."
-  s.description = "TODO: Description of ConcertoWeather."
+  s.authors     = ["Brian Michalski"]
+  s.email       = ["bmichalski@gmail.com"]
+  s.homepage    = "https://github.com/concerto/concerto-weather"
+  s.summary     = "Weather plugin for Concerto 2."
+  s.description = "Show the current weather and a short forecast in the sidebar of Concerto 2."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", "~> 3.2.12"
 
