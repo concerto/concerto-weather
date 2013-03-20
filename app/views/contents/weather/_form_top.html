@@ -1,0 +1,11 @@
+<fieldset>
+  <legend><span>Weather</span></legend>
+  <%= form.fields_for :config do |config| %>
+    <div class="clearfix">
+      <%= config.label :zip_code %>
+      <div class="input">
+        <%= config.text_field 'zip_code', :placeholder => '12180', :size => 10 %>
+      </div>
+    </div>
+  <% end %>
+</fieldset>
