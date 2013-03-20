@@ -15,7 +15,9 @@ class Weather < DynamicContent
     sanitized_data = weather_data.description
     htmltext = HtmlText.new()
     htmltext.name = weather_data.title
-    htmltext.data = "<h1>#{rss.channel.title}</h1><i>#{weather_data.title}</i><p>#{sanitized_data}</p>"
+    rawhtml = "<h1>#{rss.channel.title}</h1><i>#{weather_data.title}</i><p>#{sanitized_data}</p>"
+    Rails.logger.debug rawhtml
+    htmltext.data = ActionController::Base.helpers.sanitize(rawhtml, :tags => ['i', 'img', 'b', 'br', 'p', 'h1'])
     return [htmltext]
   end
 
