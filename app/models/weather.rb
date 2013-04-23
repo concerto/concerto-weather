@@ -1,11 +1,16 @@
 class Weather < DynamicContent
   DISPLAY_NAME = 'Weather'
 
+  UNITS = {
+    'c' => 'Celsius',
+    'f' => 'Fahrenheight'
+  }
+
   def build_content
     require 'rss'
     require 'net/http'
 
-    url = "http://weather.yahooapis.com/forecastrss?p=#{self.config['zip_code']}"
+    url = "http://weather.yahooapis.com/forecastrss?w=#{self.config['woeid']}&u=#{self.config['units']}"
 
     feed = Net::HTTP.get_response(URI.parse(url)).body
 
@@ -21,9 +26,9 @@ class Weather < DynamicContent
     return [htmltext]
   end
 
-  # Weather needs a location.
+  # Weather needs a location.  Also allow specification of units
   def self.form_attributes
     attributes = super()
-    attributes.concat([:config => [:zip_code]])
+    attributes.concat([:config => [:woeid, :units]])
   end
 end
