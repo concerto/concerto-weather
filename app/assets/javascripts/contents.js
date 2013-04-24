@@ -11,6 +11,12 @@ function attachWoeidHandlers() {
     var info = '<p>WOEID details could not be determined.</p>';
     var woeid = $('input#weather_config_woeid').val();
     var info_el = $('.woeid-info');
+    var woeidName = $('i.woeid-name');
+
+    // something was changed, so wipe out the pre-existing woeid name
+    if (woeidName.length != 0) {
+      $(woeidName).text('');
+    }
 
     if (info_el.length != 0) {
       // we found the summary box
