@@ -58,7 +58,12 @@ class Weather < DynamicContent
         if data.empty? || data['query']['count'] == 0
           errors.add(:woeid, 'not valid')
         else
-          self.config['name'] = data['query']['results']['place']['name']
+          results = data['query']['results']['place']
+          info = results['name']
+          info = info + ', ' + results['admin1']['content'] if !results['admin1']['content'].empty? if !results['admin1'].nil?
+          info = info + ', ' + results['admin2']['content'] if !results['admin2']['content'].empty? if !results['admin2'].nil?
+          info = info + ', ' + results['country']['content'] if !results['country']['content'].empty? if !results['country'].nil?
+          self.config['name'] = info
         end
       end
     end

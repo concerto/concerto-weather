@@ -1,17 +1,28 @@
+<%= javascript_include_tag "contents" %>
+
 <fieldset>
   <legend><span>Weather</span></legend>
-  <%= form.fields_for :config do |config| %>
-    <div class="clearfix">
-      <%= config.label :woeid, "Where On Earth ID (WOEID)" %>
-      <div class="input">
-        <%= config.text_field :woeid, :placeholder => '12180', :size => 10, :value => @content.config['woeid'] %>
+  <div class="row-fluid">
+    <div class='span4'>
+    <%= form.fields_for :config do |config| %>
+      <div class="clearfix">
+        <%= config.label :woeid, "Where On Earth ID (WOEID)" %>
+        <div class="input">
+          <%= config.text_field :woeid, :placeholder => '12180', :size => 10, :value => @content.config['woeid'] %>
+          <br/>
+          <i class="woeid-name"><%= @content.config['name'] %></i>
+        </div>
+      </div>
+      <div class="clearfix">
+        <%= config.label :units %>
+        <div class="input">
+          <%= config.select :units, Weather::UNITS.map {|k,v| [v, k]}, :selected => @content.config['units'] %>
+        </div>
       </div>
     </div>
-    <div class="clearfix">
-      <%= config.label :units %>
-      <div class="input">
-        <%= config.select :units, Weather::UNITS.map {|k,v| [v, k]}, :selected => @content.config['units'] %>
-      </div>
+    <% end %>
+    <div>
+      <div class='woeid-info span8'></div>
     </div>
-  <% end %>
+  </div>
 </fieldset>
