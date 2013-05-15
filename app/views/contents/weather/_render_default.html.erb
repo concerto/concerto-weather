@@ -1,6 +1,8 @@
 <dl>
-  <dt>Zip Code</dt>
-  <dd><%= content.config['zip_code'] %></dd>
+  <dt>WOEID</dt>
+  <dd><%= content.config['woeid'] %> - <%= content.config['name'] %></dd>
+  <dt>Units</dt>
+  <dd><%= Weather::UNITS[content.config['units']] %></dd>
   <dt>Last Successful Update</dt>
   <dd><%= content.config.include?('last_ok_refresh') ? Time.at(content.config['last_ok_refresh']).strftime('%c') : 'Never' %></dd>
   <dt>Last Attempted Update</dt>
