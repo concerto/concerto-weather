@@ -1,4 +1,4 @@
-<%= javascript_include_tag "contents" %>
+<%= javascript_include_tag "weather" %>
 
 <fieldset>
   <legend><span>Weather</span></legend>
@@ -8,7 +8,7 @@
       <div class="clearfix">
         <%= config.label :woeid, "Where On Earth ID (WOEID)" %>
         <div class="input">
-          <%= config.text_field :woeid, :placeholder => '12180', :size => 10, :value => @content.config['woeid'] %>
+          <%= config.text_field :woeid, :placeholder => '12180', :class => "input-small", :value => @content.config['woeid'] %>
           <br/>
           <i class="woeid-name"><%= @content.config['name'] %></i>
         </div>

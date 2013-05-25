@@ -1,4 +1,3 @@
-// contents.js
 
 // attach handler to woeid so when it loses focus we can look it up
 // not dry, but no middle man
