@@ -21,7 +21,7 @@ function attachWoeidHandlers() {
       // we found the summary box
       $(info_el).empty().html('searching...');
       $.ajax({
-        url: "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent("select woeid, placeTypeName, name, admin1, admin2, country from geo.places where (text = \"" +  woeid + "\" or woeid = \"" + woeid + "\") limit 5") + "&format=json",
+        url: "//query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent("select woeid, placeTypeName, name, admin1, admin2, country from geo.places where (text = \"" +  woeid + "\" or woeid = \"" + woeid + "\") limit 5") + "&format=json",
         dataType: 'jsonp',
         timeout: 4000,
         success: function (data) {
