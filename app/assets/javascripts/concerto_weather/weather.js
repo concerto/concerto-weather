@@ -19,7 +19,7 @@ function attachWoeidHandlers() {
 
     if (info_el.length != 0) {
       // we found the summary box
-      $(info_el).empty().html('searching...');
+      $(info_el).empty().html('<i class=\"ficon-spinner icon-spin\"></i> searching...');
       $.ajax({
         url: "//query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent("select woeid, placeTypeName, name, admin1, admin2, country from geo.places where (text = \"" +  woeid + "\" or woeid = \"" + woeid + "\") limit 5") + "&format=json",
         dataType: 'jsonp',
