@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/concerto/concerto-weather"
   s.summary     = "Weather plugin for Concerto 2."
   s.description = "Show the current weather and a short forecast in the sidebar of Concerto 2."
+  s.license     = 'Apache 2.0'
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.md"]
 
