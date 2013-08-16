@@ -2,8 +2,10 @@
 // attach handler to woeid so when it loses focus we can look it up
 // not dry, but no middle man
 function attachWoeidHandlers() {
-  $('input#weather_config_woeid').on('blur', getWoeidInfo);
+  console.log('attaching woeid handlers');
 
+  $('input#weather_config_woeid').on('keyup', getWoeidInfo);
+  
   function getWoeidInfo() {
     // will place name, district-county, province-state, country, woeid into 'div.woeid-info'
 
@@ -46,13 +48,13 @@ function attachWoeidHandlers() {
             // });
 
             // icky html table construction (with classes for bootstrap)
-            places = "<table class=\"table table-striped table-condensed table-bordered\">";
+            places = "<table class=\"table table-condensed\">";
             places += "<thead><tr><th>Name</th><th>Type</th><th>District/County/Region</th><th>Province/State</th><th>Country</th><th>WOEID</th></th></thead>";
             places += "<tbody>";
             tbody = "";
             j.forEach(function(item) {
               // todo: need htmlencoding
-              tbody += "<tr><td>" + htmlEncode(item.name) + "</td><td>" + 
+              tbody += "<tr class=\"link-hl\" data-woeid=\"" + item.woeid + "\"><td>" + htmlEncode(item.name) + "</td><td>" + 
                 htmlEncode(item.placeTypeName.content) + "</td><td>" + 
                 htmlEncode((item.admin1 ? item.admin1.content : '')) + "</td><td>" + 
                 htmlEncode((item.admin2 ? item.admin2.content : '')) + "</td><td>" + 
@@ -63,6 +65,18 @@ function attachWoeidHandlers() {
             info = places;
           } 
           $(info_el).empty().html(info);
+          // wire up the clicks on the rows to populate the woeid and name fields
+          $(info_el).find('tr').on('click', function (e) {
+            $('input#weather_config_woeid').val($(this).data('woeid'));
+            var name = "";
+            $(this).find('td').slice(2,5).each(function () {
+              text = $(this).text().trim();
+              if (text != "") {
+                name += (name != "" ? ", " : "") + text;
+              }
+            });
+            $('input#weather_name').val(name);
+          });
         },
         error: function (xoptions, textStatus)  {
           $(info_el).empty().html(info);

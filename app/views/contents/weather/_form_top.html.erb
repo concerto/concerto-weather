@@ -1,4 +1,5 @@
 <%= javascript_include_tag "concerto_weather/application" %>
+<%= stylesheet_link_tag "concerto_weather/weather" %>
 
 <fieldset>
   <legend><span>Weather</span></legend>
@@ -8,7 +9,7 @@
       <div class="clearfix">
         <%= config.label :woeid, "Where On Earth ID (WOEID)" %>
         <div class="input">
-          <%= config.text_field :woeid, :placeholder => '12180', :class => "input-small", :value => @content.config['woeid'] %>
+          <%= config.text_field :woeid, :placeholder => '2508215', :class => "input-small", :value => @content.config['woeid'] %>
           <br/>
           <i class="woeid-name"><%= @content.config['name'] %></i>
         </div>
