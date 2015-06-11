@@ -5,7 +5,7 @@ function attachWoeidHandlers() {
   console.log('attaching woeid handlers');
 
   $('input#weather_config_woeid').on('keyup', getWoeidInfo);
-  
+
   function getWoeidInfo() {
     // will place name, district-county, province-state, country, woeid into 'div.woeid-info'
 
@@ -43,27 +43,27 @@ function attachWoeidHandlers() {
             // we got something, should use jq datatables with js array load
             // places = []
             // j.forEach(function(item) {
-            //   places.push([item.name, item.placeTypeName.content, (item.admin1 ? item.admin1.content : ''), 
+            //   places.push([item.name, item.placeTypeName.content, (item.admin1 ? item.admin1.content : ''),
             //     (item.admin2 ? item.admin2.content : ''), item.country.content, item.woeid]);
             // });
 
             // icky html table construction (with classes for bootstrap)
             places = "<table class=\"table table-condensed\">";
-            places += "<thead><tr><th>Name</th><th>Type</th><th>District/County/Region</th><th>Province/State</th><th>Country</th><th>WOEID</th></th></thead>";
+            places += "<thead><tr><th>Name</th><th>Type</th><th>Province/State</th><th>District/County/Region</th><th>Country</th><th>WOEID</th></th></thead>";
             places += "<tbody>";
             tbody = "";
             j.forEach(function(item) {
               // todo: need htmlencoding
-              tbody += "<tr class=\"link-hl\" data-woeid=\"" + item.woeid + "\"><td>" + htmlEncode(item.name) + "</td><td>" + 
-                htmlEncode(item.placeTypeName.content) + "</td><td>" + 
-                htmlEncode((item.admin1 ? item.admin1.content : '')) + "</td><td>" + 
-                htmlEncode((item.admin2 ? item.admin2.content : '')) + "</td><td>" + 
-                htmlEncode((item.country ? item.country.content : '')) + "</td><td>" + 
+              tbody += "<tr class=\"link-hl\" data-woeid=\"" + item.woeid + "\"><td>" + htmlEncode(item.name) + "</td><td>" +
+                htmlEncode(item.placeTypeName.content) + "</td><td>" +
+                htmlEncode((item.admin1 ? item.admin1.content : '')) + "</td><td>" +
+                htmlEncode((item.admin2 ? item.admin2.content : '')) + "</td><td>" +
+                htmlEncode((item.country ? item.country.content : '')) + "</td><td>" +
                 item.woeid + "</td></tr>";
             });
             places += tbody + "</tbody></table>";
             info = places;
-          } 
+          }
           $(info_el).empty().html(info);
           // wire up the clicks on the rows to populate the woeid and name fields
           $(info_el).find('tr').on('click', function (e) {
