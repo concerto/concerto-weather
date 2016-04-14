@@ -7,11 +7,9 @@
     <div class='span4'>
     <%= form.fields_for :config do |config| %>
       <div class="clearfix">
-        <%= config.label :woeid, "Where On Earth ID (WOEID)" %>
+        <%= config.label :location, "City" %>
         <div class="input">
-          <%= config.text_field :woeid, :placeholder => '2508215', :class => "input-small", :value => @content.config['woeid'] %>
-          <br/>
-          <i class="woeid-name"><%= @content.config['name'] %></i>
+          <%= config.text_field :location, placeholder: "Sydney", value: @content.config['location'] %>
         </div>
       </div>
       <div class="clearfix">
