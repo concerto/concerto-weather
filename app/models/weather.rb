@@ -7,13 +7,14 @@ class Weather < DynamicContent
   }
 
   def build_content
+    require 'erb'
     require 'json'
     require 'net/http'
 
     # Build request url 
     params = {
       q: self.config['location'],
-      u: self.config['units'],
+      units: self.config['units'],
       cnt: 4,
       mode: 'json',
       appid: ConcertoConfig['open_weather_map_api_key']
@@ -26,12 +27,23 @@ class Weather < DynamicContent
     data = JSON.parse(response)
     
     # Build HTML using API data
-    rawhtml = ""
+    rawhtml = "
+                <h1> Today in #{data['city']['name']} </h1>
+                <div style='float: left; width: 50%'>
+                  <img src='http://api.openweathermap.org/img/w/#{data['list'][0]['weather'][0]['icon']}' />
+                </div>
+                <div style='float: left; width: 50%'>
+                  <p> High </p>
+                  <h1> #{data['list'][0]['temp']['max']} &deg;#{UNITS[params[:units]][0]}</h1>
+                  <p> Low </p>
+                  <h1> #{data['list'][0]['temp']['min']} &deg;#{UNITS[params[:units]][0]}</h1>
+                </div>
+              "
 
     # Create HtmlText content
     htmltext = HtmlText.new()
     htmltext.name = "Today's weather in #{data['city']['name']}"
-    htmltext.data = ActionController::Base.helpers.sanitize(rawhtml, :tags => ['i', 'img', 'b', 'br', 'p', 'h1'])
+    htmltext.data = rawhtml
 
     return [htmltext]
   end
