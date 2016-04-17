@@ -7,7 +7,6 @@ class Weather < DynamicContent
   }
 
   def build_content
-    require 'erb'
     require 'json'
     require 'net/http'
 
@@ -15,7 +14,7 @@ class Weather < DynamicContent
     params = {
       q: self.config['location'],
       units: self.config['units'],
-      cnt: 4,
+      cnt: 1,
       mode: 'json',
       appid: ConcertoConfig['open_weather_map_api_key']
     }
@@ -27,10 +26,11 @@ class Weather < DynamicContent
     data = JSON.parse(response)
     
     # Build HTML using API data
+    #<img src='http://api.openweathermap.org/img/w/#{data['list'][0]['weather'][0]['icon']}' />
     rawhtml = "
                 <h1> Today in #{data['city']['name']} </h1>
                 <div style='float: left; width: 50%'>
-                  <img src='http://api.openweathermap.org/img/w/#{data['list'][0]['weather'][0]['icon']}' />
+                  <i class='owf owf-#{data['list'][0]['weather'][0]['id']} owf-5x'></i>
                 </div>
                 <div style='float: left; width: 50%'>
                   <p> High </p>
