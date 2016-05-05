@@ -13,6 +13,9 @@
         </div>
       </div>
       <div class="clearfix">
+        <a href="http://openweathermap.org/help/city_list.txt" target="_blank"> Find your City ID </a>
+      </div>
+      <div class="clearfix">
         <%= config.label :units %>
         <div class="input">
           <%= config.select :units, Weather::UNITS.map {|k,v| [v, k]}, :selected => @content.config['units'] %>
