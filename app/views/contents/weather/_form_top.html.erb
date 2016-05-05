@@ -7,9 +7,9 @@
     <div class='span4'>
     <%= form.fields_for :config do |config| %>
       <div class="clearfix">
-        <%= config.label :location, "City" %>
+        <%= config.label :city_id, "City ID" %>
         <div class="input">
-          <%= config.text_field :location, placeholder: "Sydney", value: @content.config['location'] %>
+          <%= config.text_field :city_id, placeholder: "1273294", value: @content.config['city_id'] %>
         </div>
       </div>
       <div class="clearfix">

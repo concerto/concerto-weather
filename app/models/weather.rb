@@ -10,9 +10,9 @@ class Weather < DynamicContent
     require 'json'
     require 'net/http'
 
-    # Build request url 
+    # Build request url
     params = {
-      q: self.config['location'],
+      id: self.config['city_id'],
       units: self.config['units'],
       cnt: 1,
       mode: 'json',
@@ -24,9 +24,8 @@ class Weather < DynamicContent
     # Make request to OpenWeatherMapAPI
     response = Net::HTTP.get_response(URI.parse(url)).body
     data = JSON.parse(response)
-    
+
     # Build HTML using API data
-    #<img src='http://api.openweathermap.org/img/w/#{data['list'][0]['weather'][0]['icon']}' />
     rawhtml = "
                 <h1> Today in #{data['city']['name']} </h1>
                 <div style='float: left; width: 50%'>
@@ -45,12 +44,13 @@ class Weather < DynamicContent
     htmltext.name = "Today's weather in #{data['city']['name']}"
     htmltext.data = rawhtml
 
+    self.config["location_name"] = data["city"]["name"]
     return [htmltext]
   end
 
   # Weather needs a location.  Also allow specification of units
   def self.form_attributes
     attributes = super()
-    attributes.concat([:config => [:location, :units]])
+    attributes.concat([:config => [:city_id, :units, :location_name]])
   end
 end
