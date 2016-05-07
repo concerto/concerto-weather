@@ -19,7 +19,7 @@ function buildResultsTable(data) {
   }
 
   tableBody += "</tbody></table>";
-  tableBody += "<hr/><i>Can't find your city? Try entering your zipcode <b>or</b> your city along with its state (ex: Madison, WI).</i>"
+  tableBody += "<hr/><i>Can't find your city? Try entering your zip code <b>or</b> your city along with its state (ex: Madison, WI).</i>"
   return table + tableBody;
 }
 
