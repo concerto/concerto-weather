@@ -10,6 +10,9 @@
         <%= config.label :city_query, "City Search" %>
         <div class="input">
           <%= config.text_field :city_query, placeholder:"Name or Zipcode", value: @content.config['city_id'] %>
+          <%= button_tag type: "button", :class => "btn", onclick: "searchForCityInfo()" do %>
+            <i class="fa fa-refresh"></i>
+          <% end %>
         </div>
       </div>
       <div class="clearfix">
