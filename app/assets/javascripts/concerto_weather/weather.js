@@ -1,3 +1,18 @@
+function weatherRowClickHandler(event) {
+  // Handle click events on city results
+  // Lat/lng saved with weather content for future API calls.
+  $("#weather_config_lat").val($(this).attr("data-lat"));
+  $("#weather_config_lng").val($(this).attr("data-lng"));
+  // Reset all selected rows
+  $(".city-info").find("tr").each(function() {
+    $(this).attr("data-selected", "0");
+    $(this).removeClass("alert-info");
+  });
+  // Set a new selected row
+  $(this).attr("data-selected", "1");
+  $(this).addClass("alert-info");
+}
+
 function reverseGeocode(place) {
   // Reverse gecode returned coordinates from OpenWeatherMap API
   // OpenWeatherMap API returns limited location information so this is important
@@ -15,14 +30,15 @@ function reverseGeocode(place) {
     success: function(data) {
       // Add a row to our results table
       var lat = place.coord.lat;
-      var lng = place.coord.lng;
-      console.log(data);
+      var lng = place.coord.lon;
       var row = "<tr class='link-hl' data-selected='0' data-lat='"+lat+"' data-lng='"+lng+"'> \
                 <td>" + place.name + "</td> \
                 <td>" + (data.address.county || '') + "</td> \
                 <td>" + (data.address.state || '') + "</td> \
                 <td>" + (data.address.country_code.toUpperCase() || '') + "</td>";
       $('#cityResults tr:last').after(row);
+      // Handle click events for search results
+      $('#cityResults tr:last').on('click', weatherRowClickHandler)
     }
   });
 }
@@ -61,20 +77,6 @@ function searchForCityInfo() {
       success: function(data) {
         // Build a table of results returned from city query
         buildResultsTable(data);
-        // Handle click events on city results
-        $(info_el).find("tr").on("click", function(e) {
-          // Lat/lng saved with weather content for future API calls.
-          $("#weather_config_lat").val($(this).attr("data-lat"));
-          $("#weather_config_lng").val($(this).attr("data-lng"));
-          // Reset all selected rows
-          $(info_el).find("tr").each(function() {
-            $(this).attr("data-selected", "0");
-            $(this).removeClass("alert-info");
-          });
-          // Set a new selected row
-          $(this).attr("data-selected", "1");
-          $(this).addClass("alert-info");
-        });
       },
       error: function()  {
         $(info_el).empty().html("<p>No results found.</p>");
