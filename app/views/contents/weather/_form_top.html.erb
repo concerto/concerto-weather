@@ -7,13 +7,13 @@
     <div class='span4'>
     <%= form.fields_for :config do |config| %>
       <div class="clearfix">
-        <%= config.label :city_id, "City ID" %>
+        <%= config.label :city_query, "City Search" %>
         <div class="input">
-          <%= config.text_field :city_id, placeholder: "1273294", value: @content.config['city_id'] %>
+          <%= config.text_field :city_query, placeholder:"Name or Zipcode", value: @content.config['city_id'] %>
+          <%= button_tag type: "button", :class => "btn", onclick: "searchForCityInfo()" do %>
+            <i class="fa fa-refresh"></i>
+          <% end %>
         </div>
-      </div>
-      <div class="clearfix">
-        <a href="http://openweathermap.org/help/city_list.txt" target="_blank"> Find your City ID </a>
       </div>
       <div class="clearfix">
         <%= config.label :units %>
@@ -21,10 +21,12 @@
           <%= config.select :units, Weather::UNITS.map {|k,v| [v, k]}, :selected => @content.config['units'] %>
         </div>
       </div>
-    </div>
+      <%= config.hidden_field :lat %>
+      <%= config.hidden_field :lng %>
     <% end %>
-    <div>
-      <div class='woeid-info span8'></div>
+    </div>
+    <div class="clearfix">
+      <div class='city-info span8'></div>
     </div>
   </div>
 </fieldset>

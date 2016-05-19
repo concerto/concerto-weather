@@ -12,7 +12,8 @@ class Weather < DynamicContent
 
     # Build request url
     params = {
-      id: self.config['city_id'],
+      lat: self.config['lat'],
+      lon: self.config['lng'],
       units: self.config['units'],
       cnt: 1,
       mode: 'json',
@@ -51,6 +52,6 @@ class Weather < DynamicContent
   # Weather needs a location.  Also allow specification of units
   def self.form_attributes
     attributes = super()
-    attributes.concat([:config => [:city_id, :units, :location_name]])
+    attributes.concat([:config => [:lat, :lng, :units, :location_name]])
   end
 end
