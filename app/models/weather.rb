@@ -27,22 +27,33 @@ class Weather < DynamicContent
     data = JSON.parse(response)
 
     # Build HTML using API data
-    rawhtml = "
-                <h1> Today in #{data['city']['name']} </h1>
+
+    format_city="#{data['city']['name']}"
+    format_icon="<i class='owf owf-#{data['list'][0]['weather'][0]['id']} owf-5x'></i>"
+    format_low="#{data['list'][0]['temp']['max']} &deg;#{UNITS[params[:units]][0]}"
+    format_high="#{data['list'][0]['temp']['min']} &deg;#{UNITS[params[:units]][0]"
+
+    format_string = self.config['format_string']
+    if format_string.blank? 
+       rawhtml = "
+                <h1> Today in #{format_city} </h1>
                 <div style='float: left; width: 50%'>
-                  <i class='owf owf-#{data['list'][0]['weather'][0]['id']} owf-5x'></i>
+                   #{format_icon}
                 </div>
                 <div style='float: left; width: 50%'>
                   <p> High </p>
-                  <h1> #{data['list'][0]['temp']['max']} &deg;#{UNITS[params[:units]][0]}</h1>
+                  <h1> #{format_high} </h1>
                   <p> Low </p>
-                  <h1> #{data['list'][0]['temp']['min']} &deg;#{UNITS[params[:units]][0]}</h1>
+                  <h1> #{format_low}</h1>
                 </div>
               "
+    else 
+       rawhtml = eval("\"" + format_string + "\"")
+    end
 
     # Create HtmlText content
     htmltext = HtmlText.new()
-    htmltext.name = "Today's weather in #{data['city']['name']}"
+    htmltext.name = "Today's weather in #{format_city}"
     htmltext.data = rawhtml
 
     self.config["location_name"] = data["city"]["name"]
@@ -52,6 +63,6 @@ class Weather < DynamicContent
   # Weather needs a location.  Also allow specification of units
   def self.form_attributes
     attributes = super()
-    attributes.concat([:config => [:lat, :lng, :units, :location_name]])
+    attributes.concat([:config => [:lat, :lng, :units, :location_name, :format_string]])
   end
 end

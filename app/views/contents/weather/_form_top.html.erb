@@ -21,6 +21,13 @@
           <%= config.select :units, Weather::UNITS.map {|k,v| [v, k]}, :selected => @content.config['units'] %>
         </div>
       </div>
+      <div class="clearfix">
+        <%= config.label :format_string, "Format String" %>
+        <div class="input">
+          <%= config.text_field :format_string,  placeholder:"Format String for the weather output", value @content.config['format_string'] %>
+        </div>
+      </div>
+
       <%= config.hidden_field :lat %>
       <%= config.hidden_field :lng %>
     <% end %>
