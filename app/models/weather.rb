@@ -28,12 +28,17 @@ class Weather < DynamicContent
 
     # Build HTML using API data
 
-    format_city="#{data['city']['name']}"
-    format_icon="<i class='owf owf-#{data['list'][0]['weather'][0]['id']} owf-5x'></i>"
-    format_low="#{data['list'][0]['temp']['max']} &deg;#{UNITS[params[:units]][0]}"
-    format_high="#{data['list'][0]['temp']['min']} &deg;#{UNITS[params[:units]][0]"
+    format_city=data['city']['name']
+    format_icon="<i class=\'owf owf-#{data['list'][0]['weather'][0]['id']} owf-5x\'></i>"
+
+    #format_high=data['list'][0]['temp']['max']
+    #format_low=data['list'][0]['temp']['min']
+
+    format_high="#{data['list'][0]['temp']['max'].round(0)} &deg;#{UNITS[params[:units]][0]}"
+    format_low="#{data['list'][0]['temp']['min'].round(0)} &deg;#{UNITS[params[:units]][0]}"
 
     format_string = self.config['format_string']
+
     if format_string.blank? 
        rawhtml = "
                 <h1> Today in #{format_city} </h1>

@@ -24,7 +24,7 @@
       <div class="clearfix">
         <%= config.label :format_string, "Format String" %>
         <div class="input">
-          <%= config.text_field :format_string,  placeholder:"Format String for the weather output", value @content.config['format_string'] %>
+          <%= config.text_area :format_string, placeholder:"Format String for the weather output", value: @content.config['format_string'], cols: 60, rows: 6 %>
         </div>
       </div>
 
