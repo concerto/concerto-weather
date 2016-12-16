@@ -4,6 +4,8 @@
   <dd><%= content.config['location_name'] %></dd>
   <dt>Units</dt>
   <dd><%= Weather::UNITS[content.config['units']] %></dd>
+  <dt>Icon Style</dt>
+  <dd><%= Weather::FONTS[content.config['font_name']] %></dd>
   <dt>Last Successful Update</dt>
   <dd><%= content.config.include?('last_ok_refresh') ? Time.at(content.config['last_ok_refresh']).strftime('%c') : 'Never' %></dd>
   <dt>Last Attempted Update</dt>

@@ -22,6 +22,12 @@
         </div>
       </div>
       <div class="clearfix">
+        <%= config.label :font_name %>
+        <div class="input">
+          <%= config.select :font_name, Weather::FONTS.map {|k,v| [v, k]}, :selected => @content.config['font_name'] %>
+        </div>
+      </div>
+      <div class="clearfix">
         <%= config.label :format_string, "Format String" %>
         <div class="input">
           <%= config.text_area :format_string, placeholder:"Format String for the weather output", value: @content.config['format_string'], cols: 60, rows: 6 %>

@@ -6,6 +6,11 @@ class Weather < DynamicContent
     'imperial' => 'Fahrenheit'
   }
 
+  FONTS = {
+    'owf' => 'Open Weather Font',
+    'wi' => 'Weather Icons' 
+  }
+
   def build_content
     require 'json'
     require 'net/http'
@@ -27,10 +32,17 @@ class Weather < DynamicContent
     data = JSON.parse(response)
 
     # Build HTML using API data
+    
+    font_name = self.config['font_name']
 
     format_city=data['city']['name']
-    format_icon="<i class=\'owf owf-#{data['list'][0]['weather'][0]['id']} owf-5x\'></i>"
+    format_iconid="#{data['list'][0]['weather'][0]['id']}"
 
+    if font_name =='wi'
+       format_icon="<i class=\wi wi-owm-#{format_iconid}\'></i>"
+    else 
+       format_icon="<i class=\'owf owf-#{format_iconid} owf-5x\'></i>"
+    end
     #format_high=data['list'][0]['temp']['max']
     #format_low=data['list'][0]['temp']['min']
 
