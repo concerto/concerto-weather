@@ -34,21 +34,21 @@ class Weather < DynamicContent
     # Build HTML using API data
     
     font_name = self.config['font_name']
-    byebug
+#    byebug
 
-    format_city=data['city']['name']
-    format_iconid="#{data['list'][0]['weather'][0]['id']}"
+    format_city = data['city']['name']
+    format_iconid = "#{data['list'][0]['weather'][0]['id']}"
 
-    if font_name =='wi'
-       format_icon="<i class=\wi wi-owm-#{format_iconid}\'></i>"
+    if font_name=='wi'
+       format_icon = "<i style=\'font-size:400%' class=\'wi wi-owm-#{format_iconid}\'></i>"
     else 
-       format_icon="<i class=\'owf owf-#{format_iconid} owf-5x\'></i>"
+       format_icon = "<i class=\'owf owf-#{format_iconid} owf-5x\'></i>"
     end
-    #format_high=data['list'][0]['temp']['max']
-    #format_low=data['list'][0]['temp']['min']
+    #format_high = data['list'][0]['temp']['max']
+    #format_low = data['list'][0]['temp']['min']
 
-    format_high="#{data['list'][0]['temp']['max'].round(0)} &deg;#{UNITS[params[:units]][0]}"
-    format_low="#{data['list'][0]['temp']['min'].round(0)} &deg;#{UNITS[params[:units]][0]}"
+    format_high = "#{data['list'][0]['temp']['max'].round(0)} &deg;#{UNITS[params[:units]][0]}"
+    format_low = "#{data['list'][0]['temp']['min'].round(0)} &deg;#{UNITS[params[:units]][0]}"
 
     format_string = self.config['format_string']
 
