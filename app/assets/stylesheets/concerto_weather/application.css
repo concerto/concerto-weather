@@ -10,7 +10,7 @@
  *
  *= require_self
  *= require concerto_weather/owfont-regular
- *= require concerto_weather/weather-icons
- *= require concerto_weather/weather-icons-wind
+ *= require concerto_weather/weather-icons.min
+ *= require concerto_weather/weather-icons-wind.min
  *= require_tree .
  */

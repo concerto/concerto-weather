@@ -34,6 +34,7 @@ class Weather < DynamicContent
     # Build HTML using API data
     
     font_name = self.config['font_name']
+    byebug
 
     format_city=data['city']['name']
     format_iconid="#{data['list'][0]['weather'][0]['id']}"
@@ -80,6 +81,6 @@ class Weather < DynamicContent
   # Weather needs a location.  Also allow specification of units
   def self.form_attributes
     attributes = super()
-    attributes.concat([:config => [:lat, :lng, :units, :location_name, :format_string]])
+    attributes.concat([:config => [:lat, :lng, :units, :font_name, :location_name, :format_string]])
   end
 end
