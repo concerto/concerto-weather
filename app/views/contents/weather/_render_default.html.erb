@@ -14,4 +14,10 @@
   <dd><%= content.config.include?('last_refresh_attempt') ? distance_of_time_in_words_to_now(Time.at(content.config['last_refresh_attempt'])).titleize + ' Ago' : 'Never' %></dd>
   <dt>Min. Refresh Interval</dt>
   <dd><%= distance_of_time_in_words(content.config['interval'].to_i) %></dd>
+  <dt>Format String</dt>
+  <div class="input">
+  <textarea rows='6' readonly>
+  <%= content.config['format_string'] %>
+  </textarea>
+  </div>
 </dl>
