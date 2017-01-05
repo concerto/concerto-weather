@@ -6,6 +6,8 @@
   <dd><%= Weather::UNITS[content.config['units']] %></dd>
   <dt>Icon Style</dt>
   <dd><%= Weather::FONTS[content.config['font_name']] %></dd>
+  <dt>Forecast type</dt>
+  <dd><%= Weather::FORECAST[content.config['forecast_type']] %></dd>
   <dt>Last Successful Update</dt>
   <dd><%= content.config.include?('last_ok_refresh') ? Time.at(content.config['last_ok_refresh']).strftime('%c') : 'Never' %></dd>
   <dt>Last Attempted Update</dt>

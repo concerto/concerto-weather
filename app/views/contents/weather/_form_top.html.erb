@@ -28,9 +28,15 @@
         </div>
       </div>
       <div class="clearfix">
+        <%= config.label :forecast_type %>
+        <div class="input">
+          <%= config.select :forecast_type, Weather::FORECAST.map {|k,v| [v, k]}, :selected => @content.config['forecast_type'] %>
+        </div>
+      </div>
+      <div class="clearfix">
         <%= config.label :format_string, "Format String" %>
         <div class="input">
-          <%= config.text_area :format_string, placeholder:"Format String for the weather output", value: @content.config['format_string'], cols: 60, rows: 6 %>
+          <%= config.text_area :format_string, placeholder:"Format String for the weather output", value: @content.config['format_string'], rows: 6 %>
         </div>
       </div>
 
