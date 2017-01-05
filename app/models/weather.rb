@@ -48,6 +48,12 @@ class Weather < DynamicContent
        format_city = data['city']['name']
        format_iconid = "#{data['list'][0]['weather'][0]['id']}"
 
+       if font_name=='wi'
+          format_icon = "<i style=\'font-size:calc(min(80vh,80vw));' class=\'wi wi-owm-#{format_iconid}\'></i>"
+       else
+          format_icon = "<i class=\'owf owf-#{format_iconid} owf-5x\'></i>"
+       end
+
        format_high = "#{data['list'][0]['temp']['max'].round(0)} &deg;#{UNITS[params[:units]][0]}"
        format_low = "#{data['list'][0]['temp']['min'].round(0)} &deg;#{UNITS[params[:units]][0]}"
        emptyhtml = "
@@ -86,6 +92,12 @@ class Weather < DynamicContent
        format_city = data['name']
        format_iconid = "#{data['weather'][0]['id']}"
 
+       if font_name=='wi'
+          format_icon = "<i style=\'font-size:calc(min(80vh,80vw));' class=\'wi wi-owm-#{format_iconid}\'></i>"
+       else
+          format_icon = "<i class=\'owf owf-#{format_iconid} owf-5x\'></i>"
+       end
+
        format_high = "#{data['main']['temp_max'].round(0)} &deg;#{UNITS[params[:units]][0]}"
        format_low = "#{data['main']['temp_min'].round(0)} &deg;#{UNITS[params[:units]][0]}"
        format_current = "#{data['main']['temp'].round(0)} &deg;#{UNITS[params[:units]][0]}"
@@ -102,12 +114,6 @@ class Weather < DynamicContent
 
     end
 
-
-    if font_name=='wi'
-       format_icon = "<i style=\'font-size:100vh;' class=\'wi wi-owm-#{format_iconid}\'></i>"
-    else
-       format_icon = "<i class=\'owf owf-#{format_iconid} owf-5x\'></i>"
-    end
 
     format_string = self.config['format_string']
 
