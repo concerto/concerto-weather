@@ -1,7 +1,11 @@
 @font-face {
   font-family: weathericons;
-  src: url(/assets/concerto_weather/weathericons-regular-webfont.eot);
-  src: url(/assets/concerto_weather/weathericons-regular-webfont.eot?#iefix) format("embedded-opentype"), url(/assets/concerto_weather/weathericons-regular-webfont.woff2) format("woff2"), url(/assets/concerto_weather/weathericons-regular-webfont.woff) format("woff"), url(/assets/concerto_weather/weathericons-regular-webfont.ttf) format("truetype"), url(/assets/concerto_weather/weathericons-regular-webfont.svg#weather_iconsregular) format("svg");
+  src: font-url(/assets/concerto_weather/weathericons-regular-webfont.eot);
+  src: font-url(/assets/concerto_weather/weathericons-regular-webfont.eot?#iefix) format("embedded-opentype"), 
+	font-url(/assets/concerto_weather/weathericons-regular-webfont.woff2) format("woff2"), 
+	font-url(/assets/concerto_weather/weathericons-regular-webfont.woff) format("woff"), 
+	font-url(/assets/concerto_weather/weathericons-regular-webfont.ttf) format("truetype"), 
+	font-url(/assets/concerto_weather/weathericons-regular-webfont.svg#weather_iconsregular) format("svg");
   font-weight: 400;
   font-style: normal;
 }
