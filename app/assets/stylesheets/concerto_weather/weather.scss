@@ -5,3 +5,7 @@
 textarea#weather_config_format_string {
   width: 100%;
 }
+
+label[for=weather_config_format_string] + div.input {
+  padding-right: 2em;
+}
