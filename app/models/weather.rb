@@ -8,13 +8,15 @@ class Weather < DynamicContent
 
   FONTS = {
     'owf' => 'Open Weather Font',
-    'wi' => 'Weather Icons' 
+    'wi' => 'Weather Icons'
   }
 
   FORECAST = {
     'realtime' => 'Realtime Weather',
     'forecast' => 'Max and Min temps forecast for the day'
   }
+
+  validate :validate_config
 
   def build_content
     require 'json'
@@ -41,8 +43,14 @@ class Weather < DynamicContent
        response = Net::HTTP.get_response(URI.parse(url)).body
        data = JSON.parse(response)
 
+       # if there was an error, then return nil
+       if data['cod'].present? && !data['cod'].to_s.starts_with?('2')
+         Rails.logger.error("response (#{url}) =  #{response}")
+         return nil
+       end
+
        # Build HTML using API data
-    
+
        self.config["location_name"] = data["city"]["name"]
 
        format_city = data['city']['name']
@@ -56,7 +64,7 @@ class Weather < DynamicContent
 
        format_high = "#{data['list'][0]['temp']['max'].round(0)} &deg;#{UNITS[params[:units]][0]}"
        format_low = "#{data['list'][0]['temp']['min'].round(0)} &deg;#{UNITS[params[:units]][0]}"
-       emptyhtml = "
+       empty_html = "
                 <h1> Today in #{format_city} </h1>
                 <div style='float: left; width: 50%'>
                    #{format_icon}
@@ -85,6 +93,12 @@ class Weather < DynamicContent
        response = Net::HTTP.get_response(URI.parse(url)).body
        data = JSON.parse(response)
 
+       # if there was an error, then return nil
+       if data['cod'].present? && !data['cod'].to_s.starts_with?('2')
+         Rails.logger.error("response (#{url}) =  #{response}")
+         return nil
+       end
+
        # Build HTML using API data
 
        self.config["location_name"] = data["name"]
@@ -101,7 +115,7 @@ class Weather < DynamicContent
        format_high = "#{data['main']['temp_max'].round(0)} &deg;#{UNITS[params[:units]][0]}"
        format_low = "#{data['main']['temp_min'].round(0)} &deg;#{UNITS[params[:units]][0]}"
        format_current = "#{data['main']['temp'].round(0)} &deg;#{UNITS[params[:units]][0]}"
-       emptyhtml = "
+       empty_html = "
                 <h1> Today in #{format_city} </h1>
                 <div style='float: left; width: 50%'>
                    #{format_icon}
@@ -111,15 +125,13 @@ class Weather < DynamicContent
                   <h1> #{format_current} </h1>
                 </div>
               "
-
     end
-
 
     format_string = self.config['format_string']
 
-    if format_string.blank? 
+    if format_string.blank?
        rawhtml = empty_html
-    else 
+    else
        rawhtml = eval("\"" + format_string + "\"")
     end
 
@@ -134,5 +146,11 @@ class Weather < DynamicContent
   def self.form_attributes
     attributes = super()
     attributes.concat([:config => [:lat, :lng, :units, :font_name, :location_name, :format_string, :forecast_type]])
+  end
+
+  def validate_config
+    if self.config['lat'].blank? || self.config['lng'].blank?
+      errors.add(:base, 'A city must be selected')
+    end
   end
 end
