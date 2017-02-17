@@ -4,6 +4,11 @@
 <fieldset>
   <legend><span>Weather</span></legend>
   <div class="row-fluid">
+    <% if ConcertoConfig["open_weather_map_api_key"].blank? %>
+    <div class='alert alert-warning'>
+      The OpenWeatherMap API Key under Settings appears to be blank.  An API key is required for this content.
+    </div>
+    <% end %>
     <div class='span4'>
     <%= form.fields_for :config do |config| %>
       <div class="clearfix">

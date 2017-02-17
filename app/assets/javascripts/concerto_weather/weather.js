@@ -24,7 +24,7 @@ function reverseGeocode(place) {
   };
 
   $.ajax({
-    url: "http://nominatim.openstreetmap.org/reverse",
+    url: "//nominatim.openstreetmap.org/reverse",
     data: params,
     dataType: "json",
     success: function(data) {
@@ -51,13 +51,15 @@ function buildResultsTable(data) {
   table = "<table id='cityResults' class='table table-condensed'> \
            <thead><th>Name</th><th>District/County/Region</th><th>Province/State</th><th>Country</th>";
   tableBody = "<tbody></tbody></table>";
-  tableBody += "<hr/><i>Can't find your city? Try entering your zip code <b>or</b> your city along with its state (ex: Madison, WI).</i>"
+  tableBody += "<hr/><i>You must select your city from the list above.  Can't find your city? Try entering your zip code <b>or</b> your city along with its state (ex: Madison, WI).</i>"
   // Insert our empty results table
   $(info_el).empty().html(table + tableBody);
   // Find the address info for each weather search result
   // Then insert the place data into our results table
-  for (var i = 0; i < places.length; i++) {
-    reverseGeocode(places[i]);
+  if (typeof places != 'undefined') {
+    for (var i = 0; i < places.length; i++) {
+      reverseGeocode(places[i]);
+    }
   }
 }
 
@@ -66,6 +68,10 @@ function searchForCityInfo() {
   var cityQuery = $("input#weather_config_city_query").val();
 
   if (info_el.length != 0 && cityQuery.length > 0) {
+    // clear out any prior selected city
+    $("#weather_config_lat").val("");
+    $("#weather_config_lng").val("");
+
     // Add a 'searching' placeholder while city query results are loading
     $(info_el).empty().html("<i class='fa fa-spinner fa-spin'></i> searching...");
     // Query the OpenWeatherAPI to find a list of matching cities based on input
@@ -73,12 +79,12 @@ function searchForCityInfo() {
       url: "/concerto_weather/city_search.js",
       data: {"q": cityQuery},
       dataType: "json",
-      timeout: 4000,
+      timeout: 6000,
       success: function(data) {
         // Build a table of results returned from city query
         buildResultsTable(data);
       },
-      error: function()  {
+      error: function(data)  {
         $(info_el).empty().html("<p>No results found.</p>");
       }
     });
