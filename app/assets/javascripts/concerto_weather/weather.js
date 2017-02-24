@@ -65,7 +65,7 @@ function buildResultsTable(data) {
 
 function searchForCityInfo() {
   var info_el = $(".city-info");
-  var cityQuery = $("input#weather_config_city_query").val();
+  var cityQuery = encodeURIComponent($("input#weather_config_city_query").val());
 
   if (info_el.length != 0 && cityQuery.length > 0) {
     // clear out any prior selected city
