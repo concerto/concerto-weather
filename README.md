@@ -28,6 +28,8 @@ It uses ruby's variable substitution. The following variables are supported:
 * #{format_icon} - the html code to inject the weather icon (<i...> </i>) - uses OWF or WI font based on the setting
 * #{format_high} - High temperature (including units) for the day
 * #{format_low}  - Low temperature (including units) for the day
+* #{format_current} - Current temperature (including units). Updated every 5 minutes by default.
+
 
 It can be used for example as follows:
 
@@ -57,4 +59,6 @@ If no format is specified the following is used:
                 </div>
 ````
 
+Current Temperature only available if forecast type selected to be "Realtime". 
+Conversely, high/low temperatures for the day are available if forecast is "Max and Min for the day"
 
