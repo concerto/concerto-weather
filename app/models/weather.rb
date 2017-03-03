@@ -118,7 +118,7 @@ class Weather < DynamicContent
     format_string = self.config['format_string']
 
     if format_string.blank? 
-       rawhtml = empty_html
+       rawhtml = emptyhtml
     else 
        rawhtml = eval("\"" + format_string + "\"")
     end
