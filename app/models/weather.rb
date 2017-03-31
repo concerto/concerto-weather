@@ -184,7 +184,13 @@ class Weather < DynamicContent
     if format_string.blank?
        rawhtml = empty_html
     else
-       rawhtml = eval("\"" + format_string + "\"")
+       rawhtml = "\"" + format_string + "\""
+       format_string.sub! '#{format_city}' format_city
+       format_string.sub! '#{format_iconid}' format_iconid 
+       format_string.sub! '#{format_icon}' format_icon
+       format_string.sub! '#{format_high}' format_high
+       format_string.sub! '#{format_low}' format_low
+       format_string.sub! '#{format_current}' format_current
     end
 
     # Create HtmlText content
