@@ -13,7 +13,8 @@ class Weather < DynamicContent
 
   FORECAST = {
     'realtime' => 'Realtime Weather',
-    'forecast' => 'Max and Min temps forecast for the day'
+    'forecast' => 'Max and Min temps forecast for the day',
+    'nextday' => 'Max and Min temps forecast for the next day'
   }
 
   validate :validate_config
@@ -66,6 +67,57 @@ class Weather < DynamicContent
        format_low = "#{data['list'][0]['temp']['min'].round(0)} &deg;#{UNITS[params[:units]][0]}"
        empty_html = "
                 <h1> Today in #{format_city} </h1>
+                <div style='float: left; width: 50%'>
+                   #{format_icon}
+                </div>
+                <div style='float: left; width: 50%'>
+                  <p> High </p>
+                  <h1> #{format_high} </h1>
+                  <p> Low </p>
+                  <h1> #{format_low}</h1>
+                </div>
+              "
+    elsif forecast_type == 'nextday'
+       # Next day forecast
+       # Build request url
+       params = {
+          lat: self.config['lat'],
+          lon: self.config['lng'],
+          units: self.config['units'],
+          cnt: 2,
+          mode: 'json',
+          appid: ConcertoConfig['open_weather_map_api_key']
+       }
+
+       url = "http://api.openweathermap.org/data/2.5/forecast/daily?#{params.to_query}"
+
+       # Make request to OpenWeatherMapAPI
+       response = Net::HTTP.get_response(URI.parse(url)).body
+       data = JSON.parse(response)
+
+       # if there was an error, then return nil
+       if data['cod'].present? && !data['cod'].to_s.starts_with?('2')
+         Rails.logger.error("response (#{url}) =  #{response}")
+         return nil
+       end
+
+       # Build HTML using API data
+
+       self.config["location_name"] = data["city"]["name"]
+
+       format_city = data['city']['name']
+       format_iconid = "#{data['list'][0]['weather'][0]['id']}"
+
+       if font_name=='wi'
+          format_icon = "<i style=\'font-size:calc(min(80vh,80vw));' class=\'wi wi-owm-#{format_iconid}\'></i>"
+       else
+          format_icon = "<i class=\'owf owf-#{format_iconid} owf-5x\'></i>"
+       end
+
+       format_high = "#{data['list'][1]['temp']['max'].round(0)} &deg;#{UNITS[params[:units]][0]}"
+       format_low = "#{data['list'][1]['temp']['min'].round(0)} &deg;#{UNITS[params[:units]][0]}"
+       empty_html = "
+                <h1> Tomorrow in #{format_city} </h1>
                 <div style='float: left; width: 50%'>
                    #{format_icon}
                 </div>
