@@ -65,18 +65,19 @@ class Weather < DynamicContent
 
        format_high = "#{data['list'][0]['temp']['max'].round(0)} &deg;#{UNITS[params[:units]][0]}"
        format_low = "#{data['list'][0]['temp']['min'].round(0)} &deg;#{UNITS[params[:units]][0]}"
+       # the Redcarpet gem will assume leading spaces indicate an indented code block
        empty_html = "
-                <h1> Today in #{format_city} </h1>
-                <div style='float: left; width: 50%'>
-                   #{format_icon}
-                </div>
-                <div style='float: left; width: 50%'>
-                  <p> High </p>
-                  <h1> #{format_high} </h1>
-                  <p> Low </p>
-                  <h1> #{format_low}</h1>
-                </div>
-              "
+<h1> Today in #{format_city} </h1>
+<div style='float: left; width: 50%'>
+  #{format_icon}
+</div>
+<div style='float: left; width: 50%'>
+  <p> High </p>
+  <h1> #{format_high} </h1>
+  <p> Low </p>
+  <h1> #{format_low}</h1>
+</div>
+"
     elsif forecast_type == 'nextday'
        # Next day forecast
        # Build request url
@@ -116,18 +117,19 @@ class Weather < DynamicContent
 
        format_high = "#{data['list'][1]['temp']['max'].round(0)} &deg;#{UNITS[params[:units]][0]}"
        format_low = "#{data['list'][1]['temp']['min'].round(0)} &deg;#{UNITS[params[:units]][0]}"
+       # the Redcarpet gem will assume leading spaces indicate an indented code block
        empty_html = "
-                <h1> Tomorrow in #{format_city} </h1>
-                <div style='float: left; width: 50%'>
-                   #{format_icon}
-                </div>
-                <div style='float: left; width: 50%'>
-                  <p> High </p>
-                  <h1> #{format_high} </h1>
-                  <p> Low </p>
-                  <h1> #{format_low}</h1>
-                </div>
-              "
+<h1> Tomorrow in #{format_city} </h1>
+<div style='float: left; width: 50%'>
+  #{format_icon}
+</div>
+<div style='float: left; width: 50%'>
+  <p> High </p>
+  <h1> #{format_high} </h1>
+  <p> Low </p>
+  <h1> #{format_low}</h1>
+</div>
+"
     else
        # We're using realtime weather forecast
        # Build request url
@@ -167,16 +169,17 @@ class Weather < DynamicContent
        format_high = "#{data['main']['temp_max'].round(0)} &deg;#{UNITS[params[:units]][0]}"
        format_low = "#{data['main']['temp_min'].round(0)} &deg;#{UNITS[params[:units]][0]}"
        format_current = "#{data['main']['temp'].round(0)} &deg;#{UNITS[params[:units]][0]}"
+       # the Redcarpet gem will assume leading spaces indicate an indented code block
        empty_html = "
-                <h1> Today in #{format_city} </h1>
-                <div style='float: left; width: 50%'>
-                   #{format_icon}
-                </div>
-                <div style='float: left; width: 50%'>
-                  <p> Current </p>
-                  <h1> #{format_current} </h1>
-                </div>
-              "
+<h1> Today in #{format_city} </h1>
+<div style='float: left; width: 50%'>
+  #{format_icon}
+</div>
+<div style='float: left; width: 50%'>
+  <p> Current </p>
+  <h1> #{format_current} </h1>
+</div>
+"
     end
 
     format_string = self.config['format_string']
