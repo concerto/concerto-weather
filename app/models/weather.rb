@@ -133,12 +133,12 @@ class Weather < DynamicContent
       result_html = default_html
     else
       result_html = format_string
-      result_html.sub! '#{format_city}', format_city
-      result_html.sub! '#{format_iconid}', format_iconid
-      result_html.sub! '#{format_icon}', format_icon
-      result_html.sub! '#{format_high}', format_high
-      result_html.sub! '#{format_low}', format_low
-      result_html.sub! '#{format_current}', format_current
+        .sub('#{format_city}', format_city)
+        .sub('#{format_iconid}', format_iconid)
+        .sub('#{format_icon}', format_icon)
+        .sub('#{format_high}', format_high)
+        .sub('#{format_low}', format_low)
+        .sub('#{format_current}', format_current)
     end
 
     # Create HtmlText content
