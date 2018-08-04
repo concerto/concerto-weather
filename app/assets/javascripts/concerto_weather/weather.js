@@ -27,7 +27,7 @@ var ConcertoWeather = {
     };
 
     $.ajax({
-      url: "//nominatim.openstreetmap.org/reverse",
+      url: "https://nominatim.openstreetmap.org/reverse",
       data: params,
       dataType: "json",
       success: function(data) {
