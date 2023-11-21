@@ -6,6 +6,10 @@ module ConcertoWeather
       app.config.content_types << Weather
     end
 
+    initializer "weather.assets.precompile" do |app|
+      app.config.assets.precompile += %w(application.css application.js)
+    end
+
     def plugin_info(plugin_info_class)
       @plugin_info ||= plugin_info_class.new do
         add_route("concerto_weather", ConcertoWeather::Engine)
@@ -17,12 +21,12 @@ module ConcertoWeather
 
         # Add owfont (open weather) icon set to application layout for content preview / browsing
         add_header_tags do
-          stylesheet_link_tag "concerto_weather/application"
+          stylesheet_link_tag "assets/concerto_weather/application.css"
         end
 
         # Add owfont (open weather) icon set to concerto-frontend layout for weather content shown on screens
         add_view_hook "frontend/ScreensController", :concerto_frontend_plugins do
-          "#{ stylesheet_link_tag 'concerto_weather/application' }"
+          "#{ stylesheet_link_tag 'assets/concerto_weather/application.css' }"
         end
 
       end
